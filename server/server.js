@@ -7,7 +7,16 @@ const { summarizeTodos } = require('./controllers/todoController');
 
 const app = express();
 
-app.use(cors());
+// ✅ Replace this line:
+// app.use(cors());
+
+// 🔐 Use this:
+app.use(cors({
+  origin: 'https://todo-summary-assistant-tau.vercel.app/', // Replace with your actual frontend Vercel URL
+  methods: ['GET', 'POST'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 app.use('/todos', todoRoutes);
