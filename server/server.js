@@ -7,28 +7,25 @@ const { summarizeTodos } = require('./controllers/todoController');
 
 const app = express();
 
-// ✅ Allow multiple frontend origins
-const allowedOrigins = [
-  'https://todo-summary-assistant-jagans-projects-1eacbb43.vercel.app', // Your production frontend
-  'https://todo-summary-assistant-8ncntxu2l-jagans-projects-1eacbb43.vercel.app', // For local development
-];
 
-// ✅ Dynamic CORS origin check
+const allowedOrigins = ['https://todo-summary-assistant-dusky.vercel.app'];
+
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
+    
     if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.indexOf(origin) !== -1) {
       return callback(null, true);
     } else {
       return callback(new Error('Not allowed by CORS'));
     }
   },
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST', 'DELETE'],
   credentials: true
 }));
 
 app.use(express.json());
+
 
 app.use('/todos', todoRoutes);
 app.post('/summarize', summarizeTodos);
