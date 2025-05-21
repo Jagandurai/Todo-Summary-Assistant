@@ -114,4 +114,4 @@ PORT=5000
 
 🚀 Run the Server
 
-    npm start
+    node server.js  
