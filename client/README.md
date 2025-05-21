@@ -28,3 +28,20 @@ client/
 │ └── App.css # custom CSS
 ├── .env # Contains backend URL
 └── package.json
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### ✅ Prerequisites
+
+- Node.js (v18+ recommended)
+- npm or yarn
+
+### 📦 Install dependencies
+
+```bash
+cd client
+npm install
+npm start
