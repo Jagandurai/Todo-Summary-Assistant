@@ -7,12 +7,23 @@ const { summarizeTodos } = require('./controllers/todoController');
 
 const app = express();
 
-// ✅ Replace this line:
-// app.use(cors());
+// ✅ Allow multiple frontend origins
+const allowedOrigins = [
+  'https://todo-summary-assistant-jagans-projects-1eacbb43.vercel.app', // Your production frontend
+  'https://todo-summary-assistant-8ncntxu2l-jagans-projects-1eacbb43.vercel.app', // For local development
+];
 
-// 🔐 Use this:
+// ✅ Dynamic CORS origin check
 app.use(cors({
-  origin: 'https://todo-summary-assistant-tau.vercel.app/', // Replace with your actual frontend Vercel URL
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
   credentials: true
 }));
